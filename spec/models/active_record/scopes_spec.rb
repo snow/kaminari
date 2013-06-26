@@ -59,9 +59,9 @@ if defined? ActiveRecord
             its('first.name') { should == 'user001' }
           end
 
-          context "page 1 per nil" do
+          context "page 1 per nil (using default)" do
             subject { model_class.page(1).per(nil) }
-            it { should have(model_class.count).users }
+            it { should have(model_class.default_per_page).users }
           end
         end
 
@@ -130,12 +130,11 @@ if defined? ActiveRecord
             its(:total_pages) { should == 4 }
           end
 
-          context "with per(nil)" do
+          context "with per(nil) using default" do
             subject { model_class.page.per(nil) }
-            its(:total_pages) { should == 1 }
+            its(:total_pages) { should == 4 }
           end
         end
-
 
         describe '#current_page' do
           context 'page 1' do
@@ -147,10 +146,29 @@ if defined? ActiveRecord
             subject { model_class.page(2).per 3 }
             its(:current_page) { should == 2 }
           end
+        end
 
-          context "with per(nil)" do
-            subject { model_class.page.per(nil) }
-            its(:current_page) { should == 1 }
+        describe '#next_page' do
+          context 'page 1' do
+            subject { model_class.page }
+            its(:next_page) { should == 2 }
+          end
+
+          context 'page 5' do
+            subject { model_class.page(5) }
+            its(:next_page) { should be_nil }
+          end
+        end
+
+        describe '#prev_page' do
+          context 'page 1' do
+            subject { model_class.page }
+            its(:prev_page) { should be_nil }
+          end
+
+          context 'page 5' do
+            subject { model_class.page(5) }
+            its(:prev_page) { should == 4 }
           end
         end
 
@@ -175,6 +193,23 @@ if defined? ActiveRecord
           context 'not on last page' do
             subject { model_class.page(1).per(10) }
             its(:last_page?) { should == false }
+          end
+        end
+
+        describe '#out_of_range?' do
+          context 'on last page' do
+            subject { model_class.page(10).per(10) }
+            its(:out_of_range?) { should == false }
+          end
+
+          context 'within range' do
+            subject { model_class.page(1).per(10) }
+            its(:out_of_range?) { should == false }
+          end
+
+          context 'out of range' do
+            subject { model_class.page(11).per(10) }
+            its(:out_of_range?) { should == true }
           end
         end
 
