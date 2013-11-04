@@ -1,4 +1,4 @@
-= Kaminari
+= Kaminari {<img src="https://travis-ci.org/amatsuda/kaminari.png"/>}[http://travis-ci.org/amatsuda/kaminari] {<img src="https://codeclimate.com/github/amatsuda/kaminari.png" />}[https://codeclimate.com/github/amatsuda/kaminari]
 
 A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
 
@@ -211,7 +211,7 @@ Kaminari includes a handy template generator.
 * themes
 
   The generator has the ability to fetch several sample template themes from
-  the external repository (https://github.com/amatsuda/kaminari_themes) in 
+  the external repository (https://github.com/amatsuda/kaminari_themes) in
   addition to the bundled "default" one, which will help you creating a nice
   looking paginator.
     % rails g kaminari:views THEME
@@ -280,9 +280,6 @@ More features are coming, and again, this is still experimental. Please let us k
 
 Check out Kaminari recipes on the GitHub Wiki for more advanced tips and techniques.
 https://github.com/amatsuda/kaminari/wiki/Kaminari-recipes
-
-
-== Build Status {<img src="https://secure.travis-ci.org/amatsuda/kaminari.png"/>}[http://travis-ci.org/amatsuda/kaminari]
 
 
 == Questions, Feedback
